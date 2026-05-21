@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Home - SMA N 1 PARMAKSIAN</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            SMA N 1 PARMAKSIAN
+        </div>
+
+        <div class="menu">
+
+            <a th:href="@{/}">
+                Home
+            </a>
+
+            <a th:href="@{/profil}">
+                Profil
+            </a>
+
+            <a th:href="@{/informasi}">
+                Informasi
+            </a>
+
+            <a th:href="@{/galeri}">
+                Galeri
+            </a>
+
+            <a th:href="@{/login}">
+                Login
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Selamat Datang di
+                <br>
+                SMA N 1 PARMAKSIAN
+            </h1>
+
+            <p>
+                SMA N 1 PARMAKSIAN merupakan sekolah unggulan
+                yang membentuk generasi cerdas, disiplin,
+                dan berkarakter.
+            </p>
+
+            <a th:href="@{/profil}"
+               class="btn">
+
+                Lihat Profil
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- PRESTASI -->
+
+    <section class="section">
+
+        <h2>
+            Prestasi Sekolah
+        </h2>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <img th:src="@{/images/prestasi1.jpg}"
+                     alt="Prestasi">
+
+                <h3>
+                    Juara Olimpiade
+                </h3>
+
+                <p>
+                    Juara tingkat provinsi.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <img th:src="@{/images/prestasi2.jpg}"
+                     alt="Prestasi">
+
+                <h3>
+                    Juara Basket
+                </h3>
+
+                <p>
+                    Menang turnamen antar SMA.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <img th:src="@{/images/prestasi3.jpg}"
+                     alt="Prestasi">
+
+                <h3>
+                    Festival Seni
+                </h3>
+
+                <p>
+                    Penghargaan seni budaya.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- INFORMASI -->
+
+    <section class="section">
+
+        <h2>
+            Informasi Terbaru
+        </h2>
+
+        <div class="cards">
+
+            <div class="card"
+                 th:each="info : ${listInformasi}">
+
+                <h3 th:text="${info.judul}">
+                    Judul Informasi
+                </h3>
+
+                <p th:text="${info.isi}">
+                    Isi Informasi
+                </p>
+
+            </div>
+
+            <div class="card"
+                 th:if="${#lists.isEmpty(listInformasi)}">
+
+                <h3>
+                    Belum Ada Informasi
+                </h3>
+
+                <p>
+                    Informasi sekolah akan tampil di sini.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- GALERI -->
+
+    <section class="section">
+
+        <h2>
+            Galeri Sekolah
+        </h2>
+
+        <div class="cards">
+
+            <div class="card"
+                 th:each="galeri : ${listGaleri}">
+
+                <img th:src="@{${galeri.gambar}}"
+                     alt="Galeri">
+
+                <h3 th:text="${galeri.judul}">
+                    Judul Galeri
+                </h3>
+
+            </div>
+
+            <div class="card"
+                 th:if="${#lists.isEmpty(listGaleri)}">
+
+                <h3>
+                    Belum Ada Galeri
+                </h3>
+
+                <p>
+                    Foto kegiatan sekolah akan tampil di sini.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- KEUNGGULAN -->
+
+    <section class="section">
+
+        <h2>
+            Keunggulan Sekolah
+        </h2>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>
+                    Akademik
+                </h3>
+
+                <p>
+                    Pembelajaran berkualitas.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>
+                    Fasilitas
+                </h3>
+
+                <p>
+                    Laboratorium dan perpustakaan lengkap.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>
+                    Ekstrakurikuler
+                </h3>
+
+                <p>
+                    Banyak kegiatan pengembangan bakat.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 SMA N 1 PARMAKSIAN
+        <br>
+        Website Resmi Sekolah
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Informasi - SMA N 1 PARMAKSIAN</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            SMA N 1 PARMAKSIAN
+        </div>
+
+        <div class="menu">
+
+            <a th:href="@{/}">
+                Home
+            </a>
+
+            <a th:href="@{/profil}">
+                Profil
+            </a>
+
+            <a th:href="@{/informasi}">
+                Informasi
+            </a>
+
+            <a th:href="@{/galeri}">
+                Galeri
+            </a>
+
+            <a th:href="@{/login}">
+                Login
+            </a>
+
+        </div>
+
+    </nav>
+
+    <section class="section">
+
+        <h2>
+            Informasi Sekolah
+        </h2>
+
+        <div class="cards">
+
+            <div class="card"
+                 th:each="info : ${listInformasi}">
+
+                <h3 th:text="${info.judul}">
+                    Judul
+                </h3>
+
+                <p th:text="${info.isi}">
+                    Isi informasi
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        © 2026 SMA N 1 PARMAKSIAN
+
+    </footer>
+
+</body>
+
+</html>

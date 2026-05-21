@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Galeri Sekolah</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        SMA N 1 PARMAKSIAN
+    </div>
+
+    <div class="menu">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/profil}">Profil</a>
+        <a th:href="@{/informasi}">Informasi</a>
+        <a th:href="@{/galeri}">Galeri</a>
+        <a th:href="@{/login}">Login</a>
+    </div>
+
+</nav>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header-galeri">
+
+    <h1>Galeri Sekolah</h1>
+
+    <p>
+        Dokumentasi kegiatan dan
+        suasana sekolah
+    </p>
+
+</header>
+
+<!-- ================= GALERI ================= -->
+
+<section class="galeri-section">
+
+    <div class="galeri-container">
+
+        <!-- FOTO 1 -->
+
+        <div class="galeri-card">
+
+            <img th:src="@{/images/sekolah1.jpg}"
+                 alt="Foto Sekolah">
+
+            <div class="galeri-content">
+
+                <h3>Kegiatan Upacara</h3>
+
+                <p>
+                    Suasana kegiatan upacara bendera
+                    di halaman sekolah.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- FOTO 2 -->
+
+        <div class="galeri-card">
+
+            <img th:src="@{/images/sekolah2.jpg}"
+                 alt="Foto Sekolah">
+
+            <div class="galeri-content">
+
+                <h3>Belajar di Kelas</h3>
+
+                <p>
+                    Aktivitas belajar mengajar siswa
+                    bersama guru.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- FOTO 3 -->
+
+        <div class="galeri-card">
+
+            <img th:src="@{/images/sekolah3.jpg}"
+                 alt="Foto Sekolah">
+
+            <div class="galeri-content">
+
+                <h3>Ekstrakurikuler</h3>
+
+                <p>
+                    Dokumentasi kegiatan
+                    ekstrakurikuler siswa.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 SMA N 1 PARMAKSIAN
+    </p>
+
+</footer>
+
+</body>
+</html>
