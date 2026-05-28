@@ -23,10 +23,10 @@ public class GuruController {
     @GetMapping
     public String guru(HttpSession session, Model model) {
         Object role = session.getAttribute("role");
-        if (role == null) return "redirect:/login";
-        if ("SISWA".equals(role)) return "redirect:/siswa/data-guru";
         model.addAttribute("listGuru", guruService.findAll());
-        return "admin/guruprestasi/guru";
+        if ("ADMIN".equals(role)) return "admin/guruprestasi/guru";
+        if ("SISWA".equals(role)) return "redirect:/siswa/data-guru";
+        return "guru"; // guest
     }
 
     @GetMapping("/tambah")

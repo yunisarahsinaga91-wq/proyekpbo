@@ -23,10 +23,10 @@ public class ProfilController {
     @GetMapping
     public String profil(HttpSession session, Model model) {
         Object role = session.getAttribute("role");
-        if (role == null) return "redirect:/login";
-        if ("SISWA".equals(role)) return "redirect:/siswa/profil-sekolah";
         model.addAttribute("listProfil", profilService.findAll());
-        return "admin/profil/profil";
+        if ("ADMIN".equals(role)) return "admin/profil/profil";
+        if ("SISWA".equals(role)) return "redirect:/siswa/profil-sekolah";
+        return "profil"; // guest
     }
 
     @GetMapping("/tambah")

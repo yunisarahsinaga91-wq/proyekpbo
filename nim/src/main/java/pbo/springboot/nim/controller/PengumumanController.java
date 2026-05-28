@@ -23,10 +23,10 @@ public class PengumumanController {
     @GetMapping
     public String pengumuman(HttpSession session, Model model) {
         Object role = session.getAttribute("role");
-        if (role == null) return "redirect:/login";
-        if ("SISWA".equals(role)) return "redirect:/siswa/pengumuman";
         model.addAttribute("listPengumuman", pengumumanService.findAll());
-        return "admin/pengumuman/pengumuman";
+        if ("ADMIN".equals(role)) return "admin/pengumuman/pengumuman";
+        if ("SISWA".equals(role)) return "redirect:/siswa/pengumuman";
+        return "pengumuman"; // guest
     }
 
     @GetMapping("/tambah")

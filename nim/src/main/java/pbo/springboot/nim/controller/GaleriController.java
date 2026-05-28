@@ -23,10 +23,10 @@ public class GaleriController {
     @GetMapping
     public String galeri(HttpSession session, Model model) {
         Object role = session.getAttribute("role");
-        if (role == null) return "redirect:/login";
-        if ("SISWA".equals(role)) return "redirect:/siswa/galeri";
         model.addAttribute("listGaleri", galeriService.findAll());
-        return "admin/galeri/galeri";
+        if ("ADMIN".equals(role)) return "admin/galeri/galeri";
+        if ("SISWA".equals(role)) return "redirect:/siswa/galeri";
+        return "galeri"; // guest
     }
 
     @GetMapping("/tambah")

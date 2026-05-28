@@ -23,10 +23,10 @@ public class PrestasiController {
     @GetMapping
     public String prestasi(HttpSession session, Model model) {
         Object role = session.getAttribute("role");
-        if (role == null) return "redirect:/login";
-        if ("SISWA".equals(role)) return "redirect:/siswa/prestasi";
         model.addAttribute("listPrestasi", prestasiService.findAll());
-        return "admin/guruprestasi/prestasi";
+        if ("ADMIN".equals(role)) return "admin/guruprestasi/prestasi";
+        if ("SISWA".equals(role)) return "redirect:/siswa/prestasi";
+        return "prestasi"; // guest
     }
 
     @GetMapping("/tambah")
