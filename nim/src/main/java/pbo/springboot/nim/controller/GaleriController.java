@@ -3,16 +3,16 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pbo.springboot.nim.model.Guru;
-import pbo.springboot.nim.service.GuruService;
+import pbo.springboot.nim.model.Galeri;
+import pbo.springboot.nim.service.GaleriService;
 
 @Controller
-@RequestMapping("/guru")
-public class GuruController {
-    private final GuruService guruService;
+@RequestMapping("/galeri")
+public class GaleriController {
+    private final GaleriService galeriService;
 
-    public GuruController(GuruService guruService) {
-        this.guruService = guruService;
+    public GaleriController(GaleriService galeriService) {
+        this.galeriService = galeriService;
     }
 
     private boolean isAdmin(HttpSession session) {
@@ -21,60 +21,60 @@ public class GuruController {
     }
 
     @GetMapping
-    public String guru(HttpSession session, Model model) {
+    public String galeri(HttpSession session, Model model) {
         Object role = session.getAttribute("role");
         if (role == null) return "redirect:/login";
-        if ("SISWA".equals(role)) return "redirect:/siswa/data-guru";
-        model.addAttribute("listGuru", guruService.findAll());
-        return "admin/guruprestasi/guru";
+        if ("SISWA".equals(role)) return "redirect:/siswa/galeri";
+        model.addAttribute("listGaleri", galeriService.findAll());
+        return "admin/galeri/galeri";
     }
 
     @GetMapping("/tambah")
     public String formTambah(HttpSession session, Model model) {
         if (!isAdmin(session)) return "redirect:/login";
-        model.addAttribute("guru", new Guru());
-        return "admin/guruprestasi/edit-guru";
+        model.addAttribute("galeri", new Galeri());
+        return "admin/galeri/edit-galeri";
     }
 
     @PostMapping("/simpan")
-    public String simpan(HttpSession session, @ModelAttribute Guru guru, Model model) {
+    public String simpan(HttpSession session, @ModelAttribute Galeri galeri, Model model) {
         if (!isAdmin(session)) return "redirect:/login";
         try {
-            guruService.save(guru);
-            return "redirect:/guru";
+            galeriService.save(galeri);
+            return "redirect:/galeri";
         } catch (Exception e) {
             model.addAttribute("error", "Gagal menyimpan: " + e.getMessage());
-            model.addAttribute("guru", guru);
-            return "admin/guruprestasi/edit-guru";
+            model.addAttribute("galeri", galeri);
+            return "admin/galeri/edit-galeri";
         }
     }
 
     @GetMapping("/edit/{id}")
     public String formEdit(HttpSession session, @PathVariable Long id, Model model) {
         if (!isAdmin(session)) return "redirect:/login";
-        model.addAttribute("guru", guruService.findById(id));
-        return "admin/guruprestasi/edit-guru";
+        model.addAttribute("galeri", galeriService.findById(id));
+        return "admin/galeri/edit-galeri";
     }
 
     @PostMapping("/update/{id}")
     public String update(HttpSession session, @PathVariable Long id,
-                         @ModelAttribute Guru guru, Model model) {
+                         @ModelAttribute Galeri galeri, Model model) {
         if (!isAdmin(session)) return "redirect:/login";
         try {
-            guru.setId(id);
-            guruService.save(guru);
-            return "redirect:/guru";
+            galeri.setId(id);
+            galeriService.save(galeri);
+            return "redirect:/galeri";
         } catch (Exception e) {
             model.addAttribute("error", "Gagal mengupdate: " + e.getMessage());
-            model.addAttribute("guru", guru);
-            return "admin/guruprestasi/edit-guru";
+            model.addAttribute("galeri", galeri);
+            return "admin/galeri/edit-galeri";
         }
     }
 
     @GetMapping("/hapus/{id}")
     public String hapus(HttpSession session, @PathVariable Long id) {
         if (!isAdmin(session)) return "redirect:/login";
-        guruService.deleteById(id);
-        return "redirect:/guru";
+        galeriService.deleteById(id);
+        return "redirect:/galeri";
     }
 }

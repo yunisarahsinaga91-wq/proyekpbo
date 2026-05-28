@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Siswa — SMA N 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+
+    <div th:replace="~{fragments/sidebar :: sidebar-siswa}"></div>
+
+    <div class="admin-content">
+
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Dashboard</h1>
+                <p>Selamat datang, <span th:text="${username}">Siswa</span></p>
+            </div>
+            <div class="topbar-right">
+                <span class="status-badge">👤 <span th:text="${username}">Siswa</span></span>
+                <a th:href="@{/logout}" style="margin-left: 12px; color: #ff6b6b; text-decoration: none; font-size: 13px; font-weight: 500; cursor: pointer;">Logout</a>
+            </div>
+        </div>
+
+        <!-- STAT CARDS -->
+        <div class="stat-cards">
+            <div class="stat-card bg-blue">
+                <div class="stat-label">Pengumuman Aktif</div>
+                <div class="stat-number" th:text="${pengumumanTerbaru.size()}">0</div>
+                <div class="stat-desc">Pengumuman terbaru</div>
+            </div>
+            <div class="stat-card bg-green">
+                <div class="stat-label">Galeri Sekolah</div>
+                <div class="stat-number" th:text="${totalGaleri}">0</div>
+                <div class="stat-desc">Foto dokumentasi</div>
+            </div>
+            <div class="stat-card bg-orange">
+                <div class="stat-label">Data Guru</div>
+                <div class="stat-number" th:text="${totalGuru}">0</div>
+                <div class="stat-desc">Guru di sekolah</div>
+            </div>
+            <div class="stat-card bg-teal">
+                <div class="stat-label">Prestasi</div>
+                <div class="stat-number" th:text="${totalPrestasi}">0</div>
+                <div class="stat-desc">Prestasi tercatat</div>
+            </div>
+        </div>
+
+        <!-- PENGUMUMAN TERBARU -->
+        <div class="admin-card">
+            <h2 class="card-title">Pengumuman Terbaru</h2>
+            <div class="announcement-list">
+                <div th:each="item : ${pengumumanTerbaru}" class="announcement-item">
+                    <h3 th:text="${item.judul}">Judul Pengumuman</h3>
+                    <p th:text="${item.isi}">Isi pengumuman</p>
+                </div>
+                <div th:if="${pengumumanTerbaru.isEmpty()}" class="empty-state">
+                    <p>Belum ada pengumuman</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AKSES CEPAT -->
+        <div class="admin-card">
+            <h2 class="card-title">Akses Cepat</h2>
+            <p class="card-desc">Jelajahi informasi sekolah melalui menu berikut.</p>
+            <div class="quick-menu">
+                <a th:href="@{/siswa/profil-sekolah}" class="quick-item">
+                    <div class="quick-item-title">Profil Sekolah</div>
+                    <div class="quick-item-desc">Lihat visi, misi, dan informasi sekolah</div>
+                </a>
+                <a th:href="@{/siswa/pengumuman}" class="quick-item">
+                    <div class="quick-item-title">Pengumuman</div>
+                    <div class="quick-item-desc">Baca semua pengumuman sekolah</div>
+                </a>
+                <a th:href="@{/siswa/galeri}" class="quick-item">
+                    <div class="quick-item-title">Galeri</div>
+                    <div class="quick-item-desc">Lihat foto dokumentasi kegiatan</div>
+                </a>
+                <a th:href="@{/siswa/data-guru}" class="quick-item">
+                    <div class="quick-item-title">Data Guru</div>
+                    <div class="quick-item-desc">Lihat data tenaga pengajar</div>
+                </a>
+                <a th:href="@{/siswa/prestasi}" class="quick-item">
+                    <div class="quick-item-title">Prestasi</div>
+                    <div class="quick-item-desc">Lihat prestasi sekolah</div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

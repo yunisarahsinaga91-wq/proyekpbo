@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Sekolah — SMA N 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+
+    <div th:replace="~{fragments/sidebar :: sidebar-siswa}"></div>
+
+    <div class="admin-content">
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Profil Sekolah</h1>
+                <p>Berkomitmen menciptakan generasi cerdas, disiplin, kreatif, dan berkarakter.</p>
+            </div>
+            <div class="topbar-right">
+                <span class="status-badge">👤 <span th:text="${session.username}">Siswa</span></span>
+                <a th:href="@{/logout}" style="margin-left: 12px; color: #ff6b6b; text-decoration: none; font-size: 13px; font-weight: 500; cursor: pointer;">Logout</a>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <h2 class="card-title">Visi &amp; Misi</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Visi</h3>
+                    <p>Menjadi sekolah unggulan yang menghasilkan siswa berprestasi, disiplin, dan berakhlak mulia.</p>
+                </div>
+                <div class="card">
+                    <h3>Misi</h3>
+                    <p>Meningkatkan kualitas pendidikan, karakter siswa, serta kemampuan akademik dan non akademik.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <h2 class="card-title">Informasi Sekolah</h2>
+            <div class="cards">
+                <div class="card" th:each="profil : ${profils}">
+                    <h3 th:text="${profil.nama}">Nama Fasilitas</h3>
+                    <p th:text="${profil.deskripsi}">Deskripsi fasilitas</p>
+                </div>
+                <div class="card" th:if="${#lists.isEmpty(profils)}">
+                    <p>Belum ada data profil sekolah</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

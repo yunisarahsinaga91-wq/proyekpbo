@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestasi — SMA N 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+
+    <div th:replace="~{fragments/sidebar :: sidebar-siswa}"></div>
+
+    <div class="admin-content">
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Prestasi Sekolah</h1>
+                <p>Pencapaian siswa dan sekolah</p>
+            </div>
+            <div class="topbar-right">
+                <span class="status-badge">👤 <span th:text="${session.username}">Siswa</span></span>
+                <a th:href="@{/logout}" style="margin-left: 12px; color: #ff6b6b; text-decoration: none; font-size: 13px; font-weight: 500; cursor: pointer;">Logout</a>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <div class="cards">
+                <div class="card" th:each="prestasi : ${prestasis}">
+                    <h3 th:text="${prestasi.judul}">Judul Prestasi</h3>
+                    <p th:text="${prestasi.deskripsi}">Deskripsi prestasi</p>
+                    <p><small><strong>Tahun:</strong> <span th:text="${prestasi.tahun}">2024</span></small></p>
+                </div>
+                <div class="card" th:if="${#lists.isEmpty(prestasis)}">
+                    <h3>Belum Ada Prestasi</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

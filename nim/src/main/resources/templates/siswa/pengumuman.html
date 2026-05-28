@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman — SMA N 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+
+    <div th:replace="~{fragments/sidebar :: sidebar-siswa}"></div>
+
+    <div class="admin-content">
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Pengumuman Sekolah</h1>
+                <p>Baca pengumuman terbaru dari sekolah</p>
+            </div>
+            <div class="topbar-right">
+                <span class="status-badge">👤 <span th:text="${session.username}">Siswa</span></span>
+                <a th:href="@{/logout}" style="margin-left: 12px; color: #ff6b6b; text-decoration: none; font-size: 13px; font-weight: 500; cursor: pointer;">Logout</a>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <div class="cards">
+                <div class="card" th:each="pengumuman : ${pengumumans}">
+                    <h3 th:text="${pengumuman.judul}">Judul Pengumuman</h3>
+                    <p th:text="${pengumuman.isi}">Isi pengumuman</p>
+                </div>
+                <div class="card" th:if="${#lists.isEmpty(pengumumans)}">
+                    <h3>Belum Ada Pengumuman</h3>
+                    <p>Pengumuman sekolah akan tampil di sini.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="navbar" class="navbar">
+
+    <a class="logo" th:href="@{/}">SMA N 1 PARMAKSIAN</a>
+
+    <div class="menu">
+        <a th:href="@{/}">Beranda</a>
+        <a th:href="@{/profil}">Profil</a>
+        <a th:href="@{/pengumuman}">Pengumuman</a>
+        <a th:href="@{/galeri}">Galeri</a>
+        <a th:href="@{/guru}">Guru</a>
+
+        <!-- Belum login -->
+        <th:block th:if="${session.userLogin == null}">
+            <a th:href="@{/login}" class="nav-btn-login">Login</a>
+        </th:block>
+
+        <!-- Login sebagai Siswa -->
+        <th:block th:if="${session.userLogin != null and session.adminLogin == null}">
+            <span th:text="${session.username}">Siswa</span>
+            <a th:href="@{/siswa/dashboard}" class="nav-btn-dashboard">Dashboard</a>
+            <a th:href="@{/logout}" class="nav-btn-logout">Logout</a>
+        </th:block>
+
+        <!-- Login sebagai Admin -->
+        <th:block th:if="${session.adminLogin != null}">
+            <span th:text="${session.username}">Admin</span>
+            <a th:href="@{/dashboard}" class="nav-btn-dashboard">Dashboard</a>
+            <a th:href="@{/logout}" class="nav-btn-logout">Logout</a>
+        </th:block>
+    </div>
+
+</nav>
+</body>
+</html>

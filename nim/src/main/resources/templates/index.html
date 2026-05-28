@@ -1,283 +1,147 @@
 <!DOCTYPE html>
 <html lang="id" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Home - SMA N 1 PARMAKSIAN</title>
-
-    <link rel="stylesheet"
-          th:href="@{/css/style.css}">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home — SMA N 1 PARMAKSIAN</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body>
-
-    <!-- NAVBAR -->
-
-    <nav class="navbar">
-
-        <div class="logo">
-            SMA N 1 PARMAKSIAN
-        </div>
-
-        <div class="menu">
-
-            <a th:href="@{/}">
-                Home
-            </a>
-
-            <a th:href="@{/profil}">
-                Profil
-            </a>
-
-            <a th:href="@{/informasi}">
-                Informasi
-            </a>
-
-            <a th:href="@{/galeri}">
-                Galeri
-            </a>
-
-            <a th:href="@{/login}">
-                Login
-            </a>
-
-        </div>
-
-    </nav>
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
     <!-- HERO -->
-
     <section class="hero">
-
         <div class="hero-content">
-
-            <h1>
-                Selamat Datang di
-                <br>
-                SMA N 1 PARMAKSIAN
-            </h1>
-
-            <p>
-                SMA N 1 PARMAKSIAN merupakan sekolah unggulan
-                yang membentuk generasi cerdas, disiplin,
-                dan berkarakter.
-            </p>
-
-            <a th:href="@{/profil}"
-               class="btn">
-
-                Lihat Profil
-
-            </a>
-
+            <h1>Selamat Datang di<br>SMA N 1 PARMAKSIAN</h1>
+            <p>Sekolah unggulan yang membentuk generasi cerdas, disiplin, dan berkarakter.</p>
+            <a th:href="@{/login}" class="btn">Masuk / Login</a>
         </div>
+    </section>
 
+    <!-- PROFIL SEKOLAH -->
+    <section class="section">
+        <h2>Profil Sekolah</h2>
+        <p class="section-sub">Informasi umum SMA N 1 PARMAKSIAN</p>
+        <div class="cards">
+            <div class="card" th:each="profil : ${listProfil}">
+                <h3 th:text="${profil.nama}">Nama</h3>
+                <p th:text="${profil.deskripsi}">Deskripsi</p>
+            </div>
+            <div class="card" th:if="${#lists.isEmpty(listProfil)}">
+                <h3>Belum Ada Data Profil</h3>
+                <p>Informasi profil sekolah akan tampil di sini.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PENGUMUMAN -->
+    <section class="section" style="background:white;">
+        <h2>Pengumuman Terbaru</h2>
+        <p class="section-sub">Informasi dan pengumuman resmi dari sekolah</p>
+        <div class="cards">
+            <div class="card" th:each="pengumuman : ${listPengumuman}">
+                <h3 th:text="${pengumuman.judul}">Judul Pengumuman</h3>
+                <p th:text="${pengumuman.isi}">Isi pengumuman</p>
+            </div>
+            <div class="card" th:if="${#lists.isEmpty(listPengumuman)}">
+                <h3>Belum Ada Pengumuman</h3>
+                <p>Pengumuman sekolah akan tampil di sini.</p>
+            </div>
+        </div>
     </section>
 
     <!-- PRESTASI -->
-
     <section class="section">
-
-        <h2>
-            Prestasi Sekolah
-        </h2>
-
+        <h2>Prestasi Sekolah</h2>
+        <p class="section-sub">Pencapaian membanggakan siswa dan sekolah</p>
         <div class="cards">
-
-            <div class="card">
-
-                <img th:src="@{/images/prestasi1.jpg}"
-                     alt="Prestasi">
-
-                <h3>
-                    Juara Olimpiade
-                </h3>
-
-                <p>
-                    Juara tingkat provinsi.
+            <div class="card" th:each="prestasi : ${listPrestasi}">
+                <h3 th:text="${prestasi.judul}">Judul Prestasi</h3>
+                <p th:text="${prestasi.deskripsi}">Deskripsi prestasi</p>
+                <p style="padding: 0 20px 16px;">
+                    <small>
+                        <strong>Tahun:</strong>
+                        <span th:text="${prestasi.tahun}">2024</span>
+                        &nbsp;|&nbsp;
+                        <strong>Kategori:</strong>
+                        <span th:text="${prestasi.kategori}">Akademik</span>
+                    </small>
                 </p>
-
             </div>
-
-            <div class="card">
-
-                <img th:src="@{/images/prestasi2.jpg}"
-                     alt="Prestasi">
-
-                <h3>
-                    Juara Basket
-                </h3>
-
-                <p>
-                    Menang turnamen antar SMA.
-                </p>
-
+            <div class="card" th:if="${#lists.isEmpty(listPrestasi)}">
+                <h3>Belum Ada Prestasi</h3>
+                <p>Data prestasi sekolah akan tampil di sini.</p>
             </div>
-
-            <div class="card">
-
-                <img th:src="@{/images/prestasi3.jpg}"
-                     alt="Prestasi">
-
-                <h3>
-                    Festival Seni
-                </h3>
-
-                <p>
-                    Penghargaan seni budaya.
-                </p>
-
-            </div>
-
         </div>
-
     </section>
 
-    <!-- INFORMASI -->
-
-    <section class="section">
-
-        <h2>
-            Informasi Terbaru
-        </h2>
-
+    <!-- DATA GURU -->
+    <section class="section" style="background:white;">
+        <h2>Tenaga Pengajar</h2>
+        <p class="section-sub">Guru-guru profesional SMA N 1 PARMAKSIAN</p>
         <div class="cards">
-
-            <div class="card"
-                 th:each="info : ${listInformasi}">
-
-                <h3 th:text="${info.judul}">
-                    Judul Informasi
-                </h3>
-
-                <p th:text="${info.isi}">
-                    Isi Informasi
-                </p>
-
-            </div>
-
-            <div class="card"
-                 th:if="${#lists.isEmpty(listInformasi)}">
-
-                <h3>
-                    Belum Ada Informasi
-                </h3>
-
+            <div class="card" th:each="guru : ${listGuru}">
+                <h3 th:text="${guru.nama}">Nama Guru</h3>
                 <p>
-                    Informasi sekolah akan tampil di sini.
+                    <strong>Mata Pelajaran:</strong>
+                    <span th:text="${guru.mapel}">Mapel</span>
                 </p>
-
+                <p style="padding: 0 20px 16px;">
+                    <strong>Email:</strong>
+                    <span th:text="${guru.email}">email@sekolah.com</span>
+                </p>
             </div>
-
+            <div class="card" th:if="${#lists.isEmpty(listGuru)}">
+                <h3>Belum Ada Data Guru</h3>
+                <p>Data tenaga pengajar akan tampil di sini.</p>
+            </div>
         </div>
-
     </section>
 
     <!-- GALERI -->
-
     <section class="section">
-
-        <h2>
-            Galeri Sekolah
-        </h2>
-
+        <h2>Galeri Sekolah</h2>
+        <p class="section-sub">Dokumentasi kegiatan dan momen berharga sekolah</p>
         <div class="cards">
-
-            <div class="card"
-                 th:each="galeri : ${listGaleri}">
-
-                <img th:src="@{${galeri.gambar}}"
-                     alt="Galeri">
-
-                <h3 th:text="${galeri.judul}">
-                    Judul Galeri
-                </h3>
-
+            <div class="card" th:each="g : ${listGaleri}">
+                <img th:src="${g.gambar}" alt="Galeri"
+                     style="width:100%; height:220px; object-fit:cover;">
+                <h3 th:text="${g.judul}">Judul Galeri</h3>
             </div>
-
-            <div class="card"
-                 th:if="${#lists.isEmpty(listGaleri)}">
-
-                <h3>
-                    Belum Ada Galeri
-                </h3>
-
-                <p>
-                    Foto kegiatan sekolah akan tampil di sini.
-                </p>
-
+            <div class="card" th:if="${#lists.isEmpty(listGaleri)}">
+                <h3>Belum Ada Galeri</h3>
+                <p>Foto kegiatan sekolah akan tampil di sini.</p>
             </div>
-
         </div>
-
     </section>
 
     <!-- KEUNGGULAN -->
-
-    <section class="section">
-
-        <h2>
-            Keunggulan Sekolah
-        </h2>
-
+    <section class="section" style="background:white;">
+        <h2>Keunggulan Sekolah</h2>
+        <p class="section-sub">Mengapa memilih SMA N 1 PARMAKSIAN</p>
         <div class="cards">
-
             <div class="card">
-
-                <h3>
-                    Akademik
-                </h3>
-
-                <p>
-                    Pembelajaran berkualitas.
-                </p>
-
+                <h3>📖 Akademik</h3>
+                <p>Pembelajaran berkualitas dengan guru profesional dan berpengalaman.</p>
             </div>
-
             <div class="card">
-
-                <h3>
-                    Fasilitas
-                </h3>
-
-                <p>
-                    Laboratorium dan perpustakaan lengkap.
-                </p>
-
+                <h3>🏛️ Fasilitas</h3>
+                <p>Laboratorium, perpustakaan, dan lapangan olahraga yang lengkap.</p>
             </div>
-
             <div class="card">
-
-                <h3>
-                    Ekstrakurikuler
-                </h3>
-
-                <p>
-                    Banyak kegiatan pengembangan bakat.
-                </p>
-
+                <h3>🎭 Ekstrakurikuler</h3>
+                <p>Banyak kegiatan untuk mengembangkan bakat dan minat siswa.</p>
             </div>
-
         </div>
-
     </section>
 
-    <!-- FOOTER -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
 
-    <footer>
-
-        © 2026 SMA N 1 PARMAKSIAN
-        <br>
-        Website Resmi Sekolah
-
-    </footer>
-
+    <script>
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar')
+                    .classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
 </body>
-
 </html>

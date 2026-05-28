@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — SMA N 1 PARMAKSIAN</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-body">
+    <div class="auth-card">
+        <div class="auth-brand">SMA N 1 PARMAKSIAN</div>
+        <h2>Masuk ke Akun</h2>
+        <div class="error" th:if="${error}" th:text="${error}"></div>
+        <form th:action="@{/login}" method="post">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Masukkan username" required>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Masukkan password" required>
+            <button type="submit" class="btn-auth">Login</button>
+        </form>
+        <div class="link">
+            Belum punya akun? <a th:href="@{/register}">Daftar sekarang</a>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+        <div class="link">
+            <a th:href="@{/}" style="color:#4a148c; font-weight:600; text-decoration:none;">
+                ← Kembali ke Halaman Utama
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Profil — Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="admin-content">
+        <div class="topbar">
+            <div>
+                <h1 th:text="${profil.id == null} ? 'Tambah Profil' : 'Edit Profil'">Form Profil</h1>
+                <p>Isi data profil sekolah</p>
+            </div>
+            <a th:href="@{/profil}" class="btn-sm btn-edit">← Kembali</a>
+        </div>
+        <div class="admin-card">
+            <div th:if="${error}" style="background:#fff0f0; color:#c62828; padding:12px 14px;
+                border-radius:8px; font-size:13px; border-left:3px solid #c62828; margin-bottom:16px;"
+                th:text="${error}">Error</div>
+
+            <form th:action="${profil.id == null} ? @{/profil/simpan} : @{'/profil/update/' + ${profil.id}}"
+                  method="post">
+                <input type="text" name="namaSekolah"
+                       th:value="${profil.namaSekolah}"
+                       placeholder="Nama Sekolah" required>
+                <textarea name="sejarah"
+                          th:text="${profil.sejarah}"
+                          placeholder="Sejarah Sekolah"></textarea>
+                <textarea name="visiMisi"
+                          th:text="${profil.visiMisi}"
+                          placeholder="Visi & Misi"></textarea>
+                <textarea name="fasilitas"
+                          th:text="${profil.fasilitas}"
+                          placeholder="Fasilitas"></textarea>
+                <input type="text" name="alamat"
+                       th:value="${profil.alamat}"
+                       placeholder="Alamat Sekolah">
+                <button type="submit" class="btn-sm btn-add"
+                        th:text="${profil.id == null} ? '+ Simpan Profil' : '✔ Update Profil'">Simpan</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

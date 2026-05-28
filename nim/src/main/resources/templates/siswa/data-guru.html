@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Guru — SMA N 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+
+    <div th:replace="~{fragments/sidebar :: sidebar-siswa}"></div>
+
+    <div class="admin-content">
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Data Guru</h1>
+                <p>Daftar tenaga pengajar SMA N 1 Parmaksian</p>
+            </div>
+            <div class="topbar-right">
+                <span class="status-badge">👤 <span th:text="${session.username}">Siswa</span></span>
+                <a th:href="@{/logout}" style="margin-left: 12px; color: #ff6b6b; text-decoration: none; font-size: 13px; font-weight: 500; cursor: pointer;">Logout</a>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <div class="cards">
+                <div class="card" th:each="guru : ${gurus}">
+                    <h3 th:text="${guru.nama}">Nama Guru</h3>
+                    <p><strong>Mapel:</strong> <span th:text="${guru.mapel}">Mata Pelajaran</span></p>
+                    <p><strong>Email:</strong> <span th:text="${guru.email}">email@sekolah.com</span></p>
+                </div>
+                <div class="card" th:if="${#lists.isEmpty(gurus)}">
+                    <h3>Belum Ada Data Guru</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

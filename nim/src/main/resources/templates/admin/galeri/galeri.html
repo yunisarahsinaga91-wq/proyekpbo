@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Galeri — Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="admin-content">
+        <div class="topbar">
+            <div>
+                <h1>Kelola Galeri Sekolah</h1>
+                <p>Manajemen foto dokumentasi kegiatan</p>
+            </div>
+            <a th:href="@{/galeri/tambah}" class="btn-sm btn-add">+ Tambah Galeri</a>
+        </div>
+        <div class="admin-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width:40px;">No</th>
+                        <th>Judul</th>
+                        <th>Gambar</th>
+                        <th style="width:140px;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="g, s : ${listGaleri}">
+                        <td th:text="${s.count}">1</td>
+                        <td th:text="${g.judul}">Judul</td>
+                        <td>
+                            <img th:src="${g.gambar}" alt="Galeri"
+                                 style="width:80px;height:55px;object-fit:cover;border-radius:6px;">
+                        </td>
+                        <td>
+                            <a th:href="@{'/galeri/edit/' + ${g.id}}"  class="btn-sm btn-edit">Edit</a>
+                            <a th:href="@{'/galeri/hapus/' + ${g.id}}" class="btn-sm btn-delete">Hapus</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(listGaleri)}">
+                        <td colspan="4" style="text-align:center;color:#888;padding:24px;">
+                            Belum ada data galeri.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

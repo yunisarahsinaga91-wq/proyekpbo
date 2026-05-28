@@ -1,68 +1,43 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Data Guru</title>
-
-    <style>
-
-        body{
-            font-family: Arial;
-            background:#f4f4f4;
-            margin:0;
-            padding:0;
-        }
-
-        h1{
-            background:#0d6efd;
-            color:white;
-            text-align:center;
-            padding:20px;
-            margin:0;
-        }
-
-        .container{
-            display:flex;
-            flex-wrap:wrap;
-            justify-content:center;
-            gap:20px;
-            padding:30px;
-        }
-
-        .card{
-            background:white;
-            width:250px;
-            border-radius:10px;
-            box-shadow:0 4px 8px rgba(0,0,0,0.2);
-            padding:20px;
-            text-align:center;
-        }
-
-    </style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Guru — SMA Negeri 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
-<h1>Data Guru SMA Negeri 1 Parmaksian</h1>
+    <section class="page-header">
+        <div class="page-header-inner">
+            <p class="page-tag">Tenaga Pendidik</p>
+            <h1>Data Guru</h1>
+        </div>
+    </section>
 
-<div class="container">
+    <section class="page-section">
+        <div class="guru-grid" th:if="${!#lists.isEmpty(listGuru)}">
+            <div class="guru-card" th:each="g : ${listGuru}">
+                <div class="guru-avatar">
+                    <img th:if="${g.foto != null and !#strings.isEmpty(g.foto)}"
+                         th:src="${g.foto}" th:alt="${g.nama}">
+                    <div class="guru-avatar-placeholder"
+                         th:if="${g.foto == null or #strings.isEmpty(g.foto)}"
+                         th:text="${#strings.substring(g.nama, 0, 1)}">A</div>
+                </div>
+                <div class="guru-info">
+                    <h3 th:text="${g.nama}">Nama Guru</h3>
+                    <p th:text="${g.mataPelajaran}">Mata Pelajaran</p>
+                </div>
+            </div>
+        </div>
+        <div class="empty-state" th:if="${#lists.isEmpty(listGuru)}">
+            Belum ada data guru.
+        </div>
+    </section>
 
-    <div class="card">
-        <h3>Bapak Andi</h3>
-        <p>Guru Matematika</p>
-    </div>
-
-    <div class="card">
-        <h3>Ibu Santi</h3>
-        <p>Guru Bahasa Indonesia</p>
-    </div>
-
-    <div class="card">
-        <h3>Bapak Rudi</h3>
-        <p>Guru IPA</p>
-    </div>
-
-</div>
-
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script th:src="@{/js/navbar.js}"></script>
 </body>
 </html>
