@@ -27,7 +27,7 @@ public class ProfilService {
     public ProfilSekolah findById(@NonNull Long id) {
         try {
             return profilRepo.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException(
+                   .orElseThrow(() -> new ResourceNotFoundException(
                             "Profil dengan id " + id + " tidak ditemukan"));
         } catch (ResourceNotFoundException e) {
             throw e;

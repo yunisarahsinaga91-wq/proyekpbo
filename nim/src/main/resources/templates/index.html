@@ -7,29 +7,39 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+
     <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
     <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
             <h1>Selamat Datang di<br>SMA N 1 PARMAKSIAN</h1>
-            <p>Sekolah unggulan yang membentuk generasi cerdas, disiplin, dan berkarakter.</p>
+            <p>Sekolah unggulan yang membentuk generasi cerdas, disiplin, berprestasi, dan berkarakter.</p>
             <a th:href="@{/login}" class="btn">Masuk / Login</a>
         </div>
     </section>
 
-    <!-- PROFIL SEKOLAH -->
+    <!-- PROFIL -->
     <section class="section">
         <h2>Profil Sekolah</h2>
-        <p class="section-sub">Informasi umum SMA N 1 PARMAKSIAN</p>
+        <p class="section-sub">Informasi umum tentang SMA N 1 PARMAKSIAN</p>
+
         <div class="cards">
-            <div class="card" th:each="profil : ${listProfil}">
-                <h3 th:text="${profil.nama}">Nama</h3>
-                <p th:text="${profil.deskripsi}">Deskripsi</p>
+            <div class="card"
+                 th:if="${listProfil != null and !#lists.isEmpty(listProfil)}"
+                 th:each="p : ${listProfil}">
+                <div class="card-content">
+                    <h3 th:text="${p.namaSekolah}">Nama Sekolah</h3>
+                    <p th:text="${p.alamat}">Alamat</p>
+                    <p th:text="${p.sejarah}">Sejarah</p>
+                </div>
             </div>
-            <div class="card" th:if="${#lists.isEmpty(listProfil)}">
-                <h3>Belum Ada Data Profil</h3>
-                <p>Informasi profil sekolah akan tampil di sini.</p>
+
+            <div class="card" th:if="${listProfil == null or #lists.isEmpty(listProfil)}">
+                <div class="card-content">
+                    <h3>Belum Ada Data Profil</h3>
+                    <p>Informasi profil sekolah akan tampil di sini.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -37,15 +47,21 @@
     <!-- PENGUMUMAN -->
     <section class="section" style="background:white;">
         <h2>Pengumuman Terbaru</h2>
-        <p class="section-sub">Informasi dan pengumuman resmi dari sekolah</p>
+
         <div class="cards">
-            <div class="card" th:each="pengumuman : ${listPengumuman}">
-                <h3 th:text="${pengumuman.judul}">Judul Pengumuman</h3>
-                <p th:text="${pengumuman.isi}">Isi pengumuman</p>
+            <div class="card"
+                 th:if="${listPengumuman != null and !#lists.isEmpty(listPengumuman)}"
+                 th:each="pengumuman : ${listPengumuman}">
+                <div class="card-content">
+                    <h3 th:text="${pengumuman.judul}">Judul</h3>
+                    <p th:text="${pengumuman.isi}">Isi</p>
+                </div>
             </div>
-            <div class="card" th:if="${#lists.isEmpty(listPengumuman)}">
-                <h3>Belum Ada Pengumuman</h3>
-                <p>Pengumuman sekolah akan tampil di sini.</p>
+
+            <div class="card" th:if="${listPengumuman == null or #lists.isEmpty(listPengumuman)}">
+                <div class="card-content">
+                    <h3>Belum Ada Pengumuman</h3>
+                </div>
             </div>
         </div>
     </section>
@@ -53,47 +69,47 @@
     <!-- PRESTASI -->
     <section class="section">
         <h2>Prestasi Sekolah</h2>
-        <p class="section-sub">Pencapaian membanggakan siswa dan sekolah</p>
+
         <div class="cards">
-            <div class="card" th:each="prestasi : ${listPrestasi}">
-                <h3 th:text="${prestasi.judul}">Judul Prestasi</h3>
-                <p th:text="${prestasi.deskripsi}">Deskripsi prestasi</p>
-                <p style="padding: 0 20px 16px;">
-                    <small>
-                        <strong>Tahun:</strong>
-                        <span th:text="${prestasi.tahun}">2024</span>
-                        &nbsp;|&nbsp;
-                        <strong>Kategori:</strong>
-                        <span th:text="${prestasi.kategori}">Akademik</span>
-                    </small>
-                </p>
+            <div class="card"
+                 th:if="${listPrestasi != null and !#lists.isEmpty(listPrestasi)}"
+                 th:each="prestasi : ${listPrestasi}">
+                <div class="card-content">
+                    <h3 th:text="${prestasi.judul}">Judul Prestasi</h3>
+                    <p th:text="${prestasi.deskripsi}">Deskripsi Prestasi</p>
+                </div>
             </div>
-            <div class="card" th:if="${#lists.isEmpty(listPrestasi)}">
-                <h3>Belum Ada Prestasi</h3>
-                <p>Data prestasi sekolah akan tampil di sini.</p>
+
+            <div class="card" th:if="${listPrestasi == null or #lists.isEmpty(listPrestasi)}">
+                <div class="card-content">
+                    <h3>Belum Ada Prestasi</h3>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- DATA GURU -->
+    <!-- GURU -->
     <section class="section" style="background:white;">
-        <h2>Tenaga Pengajar</h2>
-        <p class="section-sub">Guru-guru profesional SMA N 1 PARMAKSIAN</p>
+        <h2>Data Guru</h2>
+
         <div class="cards">
-            <div class="card" th:each="guru : ${listGuru}">
-                <h3 th:text="${guru.nama}">Nama Guru</h3>
-                <p>
-                    <strong>Mata Pelajaran:</strong>
-                    <span th:text="${guru.mapel}">Mapel</span>
-                </p>
-                <p style="padding: 0 20px 16px;">
-                    <strong>Email:</strong>
-                    <span th:text="${guru.email}">email@sekolah.com</span>
-                </p>
+            <div class="card"
+                 th:if="${listGuru != null and !#lists.isEmpty(listGuru)}"
+                 th:each="guru : ${listGuru}">
+                <img th:if="${guru.foto != null and !#strings.isEmpty(guru.foto)}"
+                     th:src="@{/images/{img}(img=${guru.foto})}"
+                     alt="Foto Guru">
+
+                <div class="card-content">
+                    <h3 th:text="${guru.nama}">Nama Guru</h3>
+                    <p th:text="${guru.mataPelajaran}">Mata Pelajaran</p>
+                </div>
             </div>
-            <div class="card" th:if="${#lists.isEmpty(listGuru)}">
-                <h3>Belum Ada Data Guru</h3>
-                <p>Data tenaga pengajar akan tampil di sini.</p>
+
+            <div class="card" th:if="${listGuru == null or #lists.isEmpty(listGuru)}">
+                <div class="card-content">
+                    <h3>Belum Ada Data Guru</h3>
+                </div>
             </div>
         </div>
     </section>
@@ -101,59 +117,28 @@
     <!-- GALERI -->
     <section class="section">
         <h2>Galeri Sekolah</h2>
-        <p class="section-sub">Dokumentasi kegiatan dan momen berharga sekolah</p>
-        <div class="cards">
-            <div class="card" th:each="g : ${listGaleri}">
-                <img th:src="${g.gambar}" alt="Galeri"
-                     style="width:100%; height:220px; object-fit:cover;">
-                <h3 th:text="${g.judul}">Judul Galeri</h3>
-            </div>
-            <div class="card" th:if="${#lists.isEmpty(listGaleri)}">
-                <h3>Belum Ada Galeri</h3>
-                <p>Foto kegiatan sekolah akan tampil di sini.</p>
-            </div>
-        </div>
-    </section>
 
-    <!-- KEUNGGULAN -->
-    <section class="section" style="background:white;">
-        <h2>Keunggulan Sekolah</h2>
-        <p class="section-sub">Mengapa memilih SMA N 1 PARMAKSIAN</p>
         <div class="cards">
-            <div class="card">
-                <h3>🏆 Prestasi Akademik Nasional</h3>
-                <p>Siswa SMA N 1 Parmaksian secara konsisten meraih juara di Olimpiade Sains Nasional (OSN) tingkat kabupaten dan provinsi Sumatera Utara sejak tahun 2015.</p>
+            <div class="card"
+                 th:if="${listGaleri != null and !#lists.isEmpty(listGaleri)}"
+                 th:each="g : ${listGaleri}">
+                <img th:src="@{/images/{img}(img=${g.gambar})}"
+                     th:alt="${g.judul}">
+
+                <div class="card-content">
+                    <h3 th:text="${g.judul}">Judul Galeri</h3>
+                </div>
             </div>
-            <div class="card">
-                <h3>👩‍🏫 Guru Berpengalaman & Bersertifikat</h3>
-                <p>Lebih dari 90% tenaga pengajar kami telah bersertifikat pendidik profesional dan aktif mengikuti pelatihan peningkatan kompetensi dari Kemendikbud.</p>
-            </div>
-            <div class="card">
-                <h3>🔬 Laboratorium Lengkap</h3>
-                <p>Tersedia laboratorium Fisika, Kimia, Biologi, dan Komputer yang lengkap dan modern untuk menunjang kegiatan praktikum siswa secara optimal.</p>
-            </div>
-            <div class="card">
-                <h3>📚 Perpustakaan Digital</h3>
-                <p>Perpustakaan sekolah dilengkapi koleksi buku pelajaran, referensi ilmiah, dan akses e-book digital yang dapat diakses oleh seluruh siswa dan guru.</p>
-            </div>
-            <div class="card">
-                <h3>⚽ Fasilitas Olahraga</h3>
-                <p>Lapangan sepak bola, lapangan basket, lapangan voli, dan aula olahraga tersedia untuk mendukung pengembangan fisik dan prestasi non-akademik siswa.</p>
-            </div>
-            <div class="card">
-                <h3>🎨 Ekstrakurikuler Unggulan</h3>
-                <p>Lebih dari 15 kegiatan ekstrakurikuler aktif, termasuk Paskibra, PMR, Pramuka, Paduan Suara, KIR (Karya Ilmiah Remaja), dan Seni Budaya Batak.</p>
+
+            <div class="card" th:if="${listGaleri == null or #lists.isEmpty(listGaleri)}">
+                <div class="card-content">
+                    <h3>Belum Ada Galeri</h3>
+                </div>
             </div>
         </div>
     </section>
 
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 
-    <script>
-        window.addEventListener('scroll', () => {
-            document.querySelector('.navbar')
-                    .classList.toggle('scrolled', window.scrollY > 50);
-        });
-    </script>
 </body>
 </html>

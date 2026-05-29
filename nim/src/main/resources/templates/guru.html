@@ -1,12 +1,163 @@
 <!DOCTYPE html>
 <html lang="id" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Guru — SMA Negeri 1 Parmaksian</title>
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #222;
+        }
+
+        /* HEADER */
+
+        .page-header{
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-tag{
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .page-header h1{
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        /* SECTION */
+
+        .page-section{
+            width: 100%;
+            max-width: 1300px;
+            margin: auto;
+            padding: 60px 30px;
+        }
+
+        /* GRID */
+
+        .guru-grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        /* CARD */
+
+        .guru-card{
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: 0.3s ease;
+        }
+
+        .guru-card:hover{
+            transform: translateY(-8px);
+        }
+
+        /* FOTO */
+
+        .guru-avatar{
+            width: 100%;
+            height: 340px;
+            overflow: hidden;
+            background: #ddd;
+        }
+
+        .guru-avatar img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .guru-avatar-placeholder{
+            width: 100%;
+            height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            color: white;
+            background: #2a5298;
+        }
+
+        /* INFO */
+
+        .guru-info{
+            padding: 25px;
+            text-align: center;
+        }
+
+        .guru-info h3{
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .guru-info p{
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* EMPTY */
+
+        .empty-state{
+            text-align: center;
+            font-size: 18px;
+            color: #777;
+            padding: 40px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:768px){
+
+            .page-header{
+                padding: 60px 20px;
+            }
+
+            .page-header h1{
+                font-size: 32px;
+            }
+
+            .guru-grid{
+                grid-template-columns: 1fr;
+            }
+
+            .guru-avatar{
+                height: 280px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 <body>
+
     <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 
     <section class="page-header">
@@ -17,27 +168,45 @@
     </section>
 
     <section class="page-section">
+
         <div class="guru-grid" th:if="${!#lists.isEmpty(listGuru)}">
+
             <div class="guru-card" th:each="g : ${listGuru}">
+
                 <div class="guru-avatar">
-                    <img th:if="${g.foto != null and !#strings.isEmpty(g.foto)}"
-                         th:src="${g.foto}" th:alt="${g.nama}">
+
+                    <img
+                        th:if="${g.foto != null and !#strings.isEmpty(g.foto)}"
+                        th:src="@{'/images/' + ${g.foto}}"
+                        th:alt="${g.nama}">
+
                     <div class="guru-avatar-placeholder"
                          th:if="${g.foto == null or #strings.isEmpty(g.foto)}"
-                         th:text="${#strings.substring(g.nama, 0, 1)}">A</div>
+                         th:text="${#strings.substring(g.nama, 0, 1)}">
+                        A
+                    </div>
+
                 </div>
+
                 <div class="guru-info">
                     <h3 th:text="${g.nama}">Nama Guru</h3>
                     <p th:text="${g.mataPelajaran}">Mata Pelajaran</p>
                 </div>
+
             </div>
+
         </div>
+
         <div class="empty-state" th:if="${#lists.isEmpty(listGuru)}">
             Belum ada data guru.
         </div>
+
     </section>
 
     <footer th:replace="~{fragments/footer :: footer}"></footer>
+
     <script th:src="@{/js/navbar.js}"></script>
+
 </body>
+
 </html>
