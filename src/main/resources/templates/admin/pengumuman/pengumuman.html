@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Pengumuman — Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="admin-content">
+        <div class="topbar">
+            <div>
+                <h1>Kelola Pengumuman Sekolah</h1>
+                <p>Manajemen informasi dan pengumuman</p>
+            </div>
+            <a th:href="@{/pengumuman/tambah}" class="btn-sm btn-add">+ Tambah Pengumuman</a>
+        </div>
+        <div class="admin-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th style="width:40px;">No</th>
+                        <th>Judul</th>
+                        <th style="width:120px;">Kategori</th>
+                        <th>Isi</th>
+                        <th style="width:140px;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p, s : ${listPengumuman}">
+                        <td th:text="${s.count}">1</td>
+                        <td style="font-weight:600;" th:text="${p.judul}">Judul</td>
+                        <td>
+                            <span class="kategori-badge"
+                                  th:text="${p.kategori}"
+                                  th:classappend="${p.kategori == 'Penting'}  ? ' badge-penting'  :
+                                                  (${p.kategori == 'Akademik'} ? ' badge-akademik' :
+                                                  (${p.kategori == 'Kegiatan'} ? ' badge-kegiatan' : ' badge-umum'))">
+                            </span>
+                        </td>
+                        <td style="color:#666; max-width:260px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"
+                            th:text="${p.isi}">Isi</td>
+                        <td>
+                            <a th:href="@{'/pengumuman/edit/' + ${p.id}}" class="btn-sm btn-edit">Edit</a>
+                            <a th:href="@{'/pengumuman/hapus/' + ${p.id}}" class="btn-sm btn-delete"
+                               onclick="return confirm('Hapus pengumuman ini?')">Hapus</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(listPengumuman)}">
+                        <td colspan="5" style="text-align:center;color:#888;padding:24px;">
+                            Belum ada pengumuman.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>403 - Akses Ditolak</title></head>
+<body>
+  <h2>403 - Akses Ditolak</h2>
+  <p th:text="${message}">Anda tidak memiliki akses</p>
+  <a th:href="@{/login}">Login</a>
+</body>
+</html>

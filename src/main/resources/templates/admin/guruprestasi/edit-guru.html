@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Guru</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="admin-content">
+        <div class="topbar">
+            <div>
+                <h1 th:text="${guru.id == null} ? 'Tambah Guru' : 'Edit Guru'">Form Guru</h1>
+                <p>Isi data tenaga pengajar</p>
+            </div>
+            <a th:href="@{/guru}" class="btn-sm btn-edit">← Kembali</a>
+        </div>
+        <div class="admin-card" style="max-width:680px;">
+            <div th:if="${error}"
+                 style="background:#fff0f0;color:#c62828;padding:12px 14px;border-radius:8px;
+                        font-size:13px;border-left:3px solid #c62828;margin-bottom:16px;"
+                 th:text="${error}">Error</div>
+            <form th:action="${guru.id == null} ? @{/guru/simpan} : @{'/guru/update/' + ${guru.id}}"
+                  method="post">
+                <input type="text" name="nama"
+                       th:value="${guru.nama}"
+                       placeholder="Nama Guru" required>
+                <input type="text" name="mataPelajaran"
+                       th:value="${guru.mataPelajaran}"
+                       placeholder="Mata Pelajaran" required>
+                <input type="text" name="foto"
+                       th:value="${guru.foto}"
+                       placeholder="URL Foto Guru (opsional)">
+                <img th:if="${guru.foto != null and !#strings.isEmpty(guru.foto)}"
+                     th:src="${guru.foto}" alt="Preview"
+                     style="width:100px;height:100px;object-fit:cover;border-radius:50%;margin-bottom:16px;display:block;">
+                <button type="submit" class="btn-sm btn-add"
+                        th:text="${guru.id == null} ? '+ Simpan Guru' : '✔ Update Guru'">Simpan</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

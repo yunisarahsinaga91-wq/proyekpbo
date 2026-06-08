@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestasi — SMA Negeri 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+    <section class="page-header">
+        <div class="page-header-inner">
+            <p class="page-tag">Pencapaian Siswa</p>
+            <h1>Prestasi Sekolah</h1>
+        </div>
+    </section>
+    <section class="page-section">
+        <div class="pengumuman-list" th:if="${!#lists.isEmpty(listPrestasi)}">
+            <div class="pengumuman-item" th:each="p, s : ${listPrestasi}">
+                <div class="pengumuman-no" th:text="${'0' + (s.index + 1)}">01</div>
+                <div class="pengumuman-body">
+                    <h3 th:text="${p.judul}">Judul Prestasi</h3>
+                    <p th:text="${p.keterangan}">Keterangan prestasi.</p>
+                </div>
+            </div>
+        </div>
+        <div class="empty-state" th:if="${#lists.isEmpty(listPrestasi)}">
+            Belum ada data prestasi.
+        </div>
+    </section>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script th:src="@{/js/navbar.js}"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman — SMA N 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+    <div th:replace="~{fragments/sidebar :: sidebar-siswa}"></div>
+    <div class="admin-content">
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Pengumuman Sekolah</h1>
+                <p>Baca pengumuman terbaru dari sekolah</p>
+            </div>
+            <div class="topbar-right">
+                <span class="status-badge">👤 <span th:text="${username}">Siswa</span></span>
+            </div>
+        </div>
+        <div class="admin-card">
+            <div class="pengumuman-list" th:if="${pengumumans != null and not #lists.isEmpty(pengumumans)}">
+                <div class="pengumuman-item" th:each="p, s : ${pengumumans}">
+                    <div class="pengumuman-no" th:text="${s.count < 10} ? '0' + ${s.count} : ${s.count}">01</div>
+                    <div class="pengumuman-body">
+                        <span class="kategori-badge"
+                              th:text="${p.kategori}"
+                              th:classappend="${p.kategori == 'Penting'}  ? ' badge-penting'  :
+                                              (${p.kategori == 'Akademik'} ? ' badge-akademik' :
+                                              (${p.kategori == 'Kegiatan'} ? ' badge-kegiatan' : ' badge-umum'))">
+                        </span>
+                        <h3 th:text="${p.judul}">Judul Pengumuman</h3>
+                        <p th:text="${p.isi}">Isi pengumuman</p>
+                    </div>
+                </div>
+            </div>
+            <div class="empty-state" th:if="${pengumumans == null or #lists.isEmpty(pengumumans)}">
+                Belum ada pengumuman.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

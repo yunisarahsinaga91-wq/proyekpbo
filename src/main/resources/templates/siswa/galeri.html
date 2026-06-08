@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri — SMA N 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+
+    <div th:replace="~{fragments/sidebar :: sidebar-siswa}"></div>
+
+    <div class="admin-content">
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Galeri Sekolah</h1>
+                <p>Dokumentasi kegiatan sekolah</p>
+            </div>
+            <div class="topbar-right">
+                <span class="status-badge">👤 <span th:text="${username}">Siswa</span></span>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <div class="cards">
+                <div class="card" th:each="galeri : ${galeris}">
+                    <img th:src="${galeri.gambar}" alt="Galeri" style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
+                    <h3 th:text="${galeri.judul}">Judul Galeri</h3>
+                </div>
+                <div class="card" th:if="${#lists.isEmpty(galeris)}">
+                    <h3>Belum Ada Galeri</h3>
+                    <p>Foto kegiatan sekolah akan tampil di sini.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

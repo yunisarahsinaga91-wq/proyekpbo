@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Galeri</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="admin-content">
+        <div class="topbar">
+            <div>
+                <h1 th:text="${galeri.id == null} ? 'Tambah Galeri' : 'Edit Galeri'">Form Galeri</h1>
+                <p>Isi data foto galeri sekolah</p>
+            </div>
+            <a th:href="@{/galeri}" class="btn-sm btn-edit">← Kembali</a>
+        </div>
+
+        <div class="admin-card" style="max-width:680px;">
+            <div th:if="${error}"
+                 style="background:#fff0f0;color:#c62828;padding:12px 14px;border-radius:8px;
+                        font-size:13px;border-left:3px solid #c62828;margin-bottom:16px;"
+                 th:text="${error}">Error</div>
+
+            <form th:action="${galeri.id == null} ? @{/galeri/simpan} : @{/galeri/update/{id}(id=${galeri.id})}"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                <input type="text" name="judul"
+                       th:value="${galeri.judul}"
+                       placeholder="Judul Galeri" required>
+
+                <input type="file" name="file"
+                       th:required="${galeri.id == null}">
+
+                <img th:if="${galeri.gambar != null and !#strings.isEmpty(galeri.gambar)}"
+                     th:src="@{/images/{img}(img=${galeri.gambar})}"
+                     alt="Preview"
+                     style="width:220px;border-radius:10px;margin-bottom:16px;display:block;">
+
+                <button type="submit" class="btn-sm btn-add"
+                        th:text="${galeri.id == null} ? '+ Simpan Galeri' : '✔ Update Galeri'">
+                    Simpan
+                </button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

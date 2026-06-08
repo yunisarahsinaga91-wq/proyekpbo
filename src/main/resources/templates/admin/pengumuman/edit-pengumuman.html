@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengumuman — Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <div class="admin-content">
+        <div class="topbar">
+            <div>
+                <h1 th:text="${pengumuman.id == null} ? 'Tambah Pengumuman' : 'Edit Pengumuman'">Form Pengumuman</h1>
+                <p>Isi data pengumuman sekolah</p>
+            </div>
+            <a th:href="@{/pengumuman}" class="btn-sm btn-edit">← Kembali</a>
+        </div>
+
+        <div class="admin-card">
+            <div th:if="${error}"
+                 style="background:#fff0f0;color:#c62828;padding:12px 14px;border-radius:8px;
+                        font-size:13px;border-left:3px solid #c62828;margin-bottom:20px;"
+                 th:text="${error}">Error</div>
+
+            <form th:action="${pengumuman.id == null} ? @{/pengumuman/simpan} : @{'/pengumuman/update/' + ${pengumuman.id}}"
+                  method="post">
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
+                    <div class="form-group">
+                        <label for="judul">Judul Pengumuman</label>
+                        <input id="judul" type="text" name="judul"
+                               th:value="${pengumuman.judul}"
+                               placeholder="Contoh: Libur Semester Ganjil" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kategori">Kategori</label>
+                        <select id="kategori" name="kategori" required>
+                            <option value="" disabled th:selected="${pengumuman.kategori == null}">-- Pilih Kategori --</option>
+                            <option value="Umum"     th:selected="${pengumuman.kategori == 'Umum'}">Umum</option>
+                            <option value="Akademik" th:selected="${pengumuman.kategori == 'Akademik'}">Akademik</option>
+                            <option value="Kegiatan" th:selected="${pengumuman.kategori == 'Kegiatan'}">Kegiatan</option>
+                            <option value="Penting"  th:selected="${pengumuman.kategori == 'Penting'}">Penting</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:24px;">
+                    <label for="isi">Isi Pengumuman</label>
+                    <textarea id="isi" name="isi"
+                              th:text="${pengumuman.isi}"
+                              placeholder="Tuliskan isi pengumuman secara lengkap..."
+                              style="height:200px;" required></textarea>
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <button type="submit" class="btn-sm btn-add"
+                            th:text="${pengumuman.id == null} ? '+ Simpan Pengumuman' : '✔ Update Pengumuman'">Simpan</button>
+                    <a th:href="@{/pengumuman}" class="btn-sm btn-edit">Batal</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

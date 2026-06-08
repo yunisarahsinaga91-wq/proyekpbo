@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil — SMA Negeri 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <section class="page-header">
+        <div class="page-header-inner">
+            <p class="page-tag">Tentang Kami</p>
+            <h1>Profil Sekolah</h1>
+        </div>
+    </section>
+
+    <!-- Data dari database -->
+    <section class="page-section" th:if="${!#lists.isEmpty(listProfil)}">
+        <div class="profil-item" th:each="p : ${listProfil}">
+            <div class="profil-block">
+                <p class="profil-label">Nama Sekolah</p>
+                <h2 th:text="${p.namaSekolah}">Nama Sekolah</h2>
+            </div>
+            <div class="profil-grid">
+                <div class="profil-block" th:if="${p.sejarah != null}">
+                    <p class="profil-label">Sejarah</p>
+                    <p th:text="${p.sejarah}">Sejarah sekolah.</p>
+                </div>
+                <div class="profil-block" th:if="${p.visiMisi != null}">
+                    <p class="profil-label">Visi &amp; Misi</p>
+                    <p th:text="${p.visiMisi}">Visi dan misi sekolah.</p>
+                </div>
+                <div class="profil-block" th:if="${p.fasilitas != null}">
+                    <p class="profil-label">Fasilitas</p>
+                    <p th:text="${p.fasilitas}">Fasilitas sekolah.</p>
+                </div>
+                <div class="profil-block" th:if="${p.alamat != null}">
+                    <p class="profil-label">Alamat</p>
+                    <p th:text="${p.alamat}">Alamat sekolah.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fallback jika database kosong -->
+    <section class="page-section" th:if="${#lists.isEmpty(listProfil)}">
+        <div class="profil-item">
+            <div class="profil-block">
+                <p class="profil-label">Nama Sekolah</p>
+                <h2>SMA Negeri 1 Parmaksian</h2>
+            </div>
+            <div class="profil-grid">
+                <div class="profil-block">
+                    <p class="profil-label">Visi</p>
+                    <p>Menjadi sekolah unggulan yang menghasilkan siswa berprestasi, disiplin, dan berakhlak mulia.</p>
+                </div>
+                <div class="profil-block">
+                    <p class="profil-label">Misi</p>
+                    <p>Meningkatkan kualitas pendidikan, karakter siswa, serta kemampuan akademik dan non-akademik.</p>
+                </div>
+                <div class="profil-block">
+                    <p class="profil-label">Alamat</p>
+                    <p>Jl. Parmaksian, Kabupaten Toba, Sumatera Utara.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script th:src="@{/js/navbar.js}"></script>
+</body>
+</html>

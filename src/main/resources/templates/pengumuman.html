@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman — SMA Negeri 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+    <section class="page-header">
+        <div class="page-header-inner">
+            <p class="page-tag">Informasi Terkini</p>
+            <h1>Pengumuman Sekolah</h1>
+        </div>
+    </section>
+    <section class="page-section">
+        <div class="pengumuman-list" th:if="${listPengumuman != null and not #lists.isEmpty(listPengumuman)}">
+            <div class="pengumuman-item" th:each="p, s : ${listPengumuman}">
+                <div class="pengumuman-no" th:text="${s.count < 10} ? '0' + ${s.count} : ${s.count}">01</div>
+                <div class="pengumuman-body">
+                    <span class="kategori-badge"
+                          th:text="${p.kategori}"
+                          th:classappend="${p.kategori == 'Penting'}  ? ' badge-penting'  :
+                                          (${p.kategori == 'Akademik'} ? ' badge-akademik' :
+                                          (${p.kategori == 'Kegiatan'} ? ' badge-kegiatan' : ' badge-umum'))">
+                    </span>
+                    <h3 th:text="${p.judul}">Judul Pengumuman</h3>
+                    <p th:text="${p.isi}">Isi pengumuman.</p>
+                </div>
+            </div>
+        </div>
+        <div class="empty-state" th:if="${listPengumuman == null or #lists.isEmpty(listPengumuman)}">
+            Belum ada pengumuman.
+        </div>
+    </section>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script th:src="@{/js/navbar.js}"></script>
+</body>
+</html>

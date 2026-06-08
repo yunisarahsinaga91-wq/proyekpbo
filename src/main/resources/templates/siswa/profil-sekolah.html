@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Sekolah — SMA N 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+    <div th:replace="~{fragments/sidebar :: sidebar-siswa}"></div>
+    <div class="admin-content">
+
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Profil Sekolah</h1>
+                <p>Berkomitmen menciptakan generasi cerdas, disiplin, kreatif, dan berkarakter.</p>
+            </div>
+            <div class="topbar-right">
+                <span class="status-badge">👤 <span th:text="${username}">Siswa</span></span>
+            </div>
+        </div>
+
+        <!-- Data dari database -->
+        <div th:each="profil : ${profils}">
+
+            <!-- Nama Sekolah -->
+            <div class="admin-card">
+                <h2 class="card-title" th:text="${profil.namaSekolah}">Nama Sekolah</h2>
+                <p class="card-desc" th:text="${profil.alamat}">Alamat sekolah</p>
+            </div>
+
+            <!-- Visi & Misi dari database -->
+            <div class="admin-card" th:if="${profil.visiMisi != null and !#strings.isEmpty(profil.visiMisi)}">
+                <h2 class="card-title">Visi &amp; Misi</h2>
+                <p style="color:#444;font-size:14px;line-height:1.8;"
+                   th:text="${profil.visiMisi}">Visi dan misi sekolah</p>
+            </div>
+
+            <!-- Sejarah -->
+            <div class="admin-card" th:if="${profil.sejarah != null and !#strings.isEmpty(profil.sejarah)}">
+                <h2 class="card-title">Sejarah Sekolah</h2>
+                <p style="color:#444;font-size:14px;line-height:1.8;"
+                   th:text="${profil.sejarah}">Sejarah sekolah</p>
+            </div>
+
+            <!-- Fasilitas -->
+            <div class="admin-card" th:if="${profil.fasilitas != null and !#strings.isEmpty(profil.fasilitas)}">
+                <h2 class="card-title">Fasilitas</h2>
+                <p style="color:#444;font-size:14px;line-height:1.8;"
+                   th:text="${profil.fasilitas}">Fasilitas sekolah</p>
+            </div>
+
+        </div>
+
+        <!-- Fallback kalau database kosong -->
+        <div th:if="${#lists.isEmpty(profils)}">
+            <div class="admin-card">
+                <h2 class="card-title">SMA Negeri 1 Parmaksian</h2>
+                <p class="card-desc">Jl. Parmaksian, Kabupaten Toba, Sumatera Utara.</p>
+            </div>
+            <div class="admin-card">
+                <h2 class="card-title">Visi &amp; Misi</h2>
+                <div class="cards">
+                    <div class="card">
+                        <h3>Visi</h3>
+                        <p>Menjadi sekolah unggulan yang menghasilkan siswa berprestasi, disiplin, dan berakhlak mulia.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Misi</h3>
+                        <p>Meningkatkan kualitas pendidikan, karakter siswa, serta kemampuan akademik dan non-akademik.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

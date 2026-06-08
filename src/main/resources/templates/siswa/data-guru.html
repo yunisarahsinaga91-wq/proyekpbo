@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Guru — SMA N 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+    <div th:replace="~{fragments/sidebar :: sidebar-siswa}"></div>
+    <div class="admin-content">
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Data Guru</h1>
+                <p>Daftar tenaga pengajar SMA N 1 Parmaksian</p>
+            </div>
+            <div class="topbar-right">
+                <span class="status-badge" th:text="${username}">Siswa</span>
+            </div>
+        </div>
+        <div class="admin-card">
+            <div class="cards" th:if="${gurus != null and not #lists.isEmpty(gurus)}">
+                <div class="card" th:each="guru : ${gurus}">
+
+                    <!-- Foto jika ada -->
+                    <img th:if="${guru.foto != null and !#strings.isEmpty(guru.foto)}"
+                         th:src="${guru.foto}"
+                         th:alt="${guru.nama}"
+                         style="width:60px;height:60px;border-radius:50%;object-fit:cover;margin-bottom:8px;">
+
+                    <h3 th:text="${guru.nama}">Nama Guru</h3>
+                    <p>
+                        <strong>Mata Pelajaran:</strong>
+                        <span th:text="${guru.mataPelajaran}">Mata Pelajaran</span>
+                    </p>
+                </div>
+            </div>
+            <div th:if="${gurus == null or #lists.isEmpty(gurus)}" class="empty-state">
+                <p>Belum ada data guru.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home — SMA N 1 PARMAKSIAN</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Selamat Datang di<br>SMA N 1 PARMAKSIAN</h1>
+            <p>Sekolah unggulan yang membentuk generasi cerdas, disiplin, berprestasi, dan berkarakter.</p>
+            <a th:href="@{/login}" class="btn">Masuk / Login</a>
+        </div>
+    </section>
+
+    <!-- PROFIL -->
+    <section class="section">
+        <h2>Profil Sekolah</h2>
+        <p class="section-sub">Informasi umum tentang SMA N 1 PARMAKSIAN</p>
+
+        <div class="cards">
+            <div class="card"
+                 th:if="${listProfil != null and !#lists.isEmpty(listProfil)}"
+                 th:each="p : ${listProfil}">
+                <div class="card-content">
+                    <h3 th:text="${p.namaSekolah}">Nama Sekolah</h3>
+                    <p th:text="${p.alamat}">Alamat</p>
+                    <p th:text="${p.sejarah}">Sejarah</p>
+                </div>
+            </div>
+
+            <div class="card" th:if="${listProfil == null or #lists.isEmpty(listProfil)}">
+                <div class="card-content">
+                    <h3>Belum Ada Data Profil</h3>
+                    <p>Informasi profil sekolah akan tampil di sini.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PENGUMUMAN -->
+    <section class="section" style="background:white;">
+        <h2>Pengumuman Terbaru</h2>
+
+        <div class="cards">
+            <div class="card"
+                 th:if="${listPengumuman != null and !#lists.isEmpty(listPengumuman)}"
+                 th:each="pengumuman : ${listPengumuman}">
+                <div class="card-content">
+                    <h3 th:text="${pengumuman.judul}">Judul</h3>
+                    <p th:text="${pengumuman.isi}">Isi</p>
+                </div>
+            </div>
+
+            <div class="card" th:if="${listPengumuman == null or #lists.isEmpty(listPengumuman)}">
+                <div class="card-content">
+                    <h3>Belum Ada Pengumuman</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRESTASI -->
+    <section class="section">
+        <h2>Prestasi Sekolah</h2>
+
+        <div class="cards">
+            <div class="card"
+                 th:if="${listPrestasi != null and !#lists.isEmpty(listPrestasi)}"
+                 th:each="prestasi : ${listPrestasi}">
+                <div class="card-content">
+                    <h3 th:text="${prestasi.judul}">Judul Prestasi</h3>
+                    <p th:text="${prestasi.deskripsi}">Deskripsi Prestasi</p>
+                </div>
+            </div>
+
+            <div class="card" th:if="${listPrestasi == null or #lists.isEmpty(listPrestasi)}">
+                <div class="card-content">
+                    <h3>Belum Ada Prestasi</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GURU -->
+    <section class="section" style="background:white;">
+        <h2>Data Guru</h2>
+
+        <div class="cards">
+            <div class="card"
+                 th:if="${listGuru != null and !#lists.isEmpty(listGuru)}"
+                 th:each="guru : ${listGuru}">
+                <img th:if="${guru.foto != null and !#strings.isEmpty(guru.foto)}"
+                     th:src="@{/images/{img}(img=${guru.foto})}"
+                     alt="Foto Guru">
+
+                <div class="card-content">
+                    <h3 th:text="${guru.nama}">Nama Guru</h3>
+                    <p th:text="${guru.mataPelajaran}">Mata Pelajaran</p>
+                </div>
+            </div>
+
+            <div class="card" th:if="${listGuru == null or #lists.isEmpty(listGuru)}">
+                <div class="card-content">
+                    <h3>Belum Ada Data Guru</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERI -->
+    <section class="section">
+        <h2>Galeri Sekolah</h2>
+
+        <div class="cards">
+            <div class="card"
+                 th:if="${listGaleri != null and !#lists.isEmpty(listGaleri)}"
+                 th:each="g : ${listGaleri}">
+                <img th:src="@{/images/{img}(img=${g.gambar})}"
+                     th:alt="${g.judul}">
+
+                <div class="card-content">
+                    <h3 th:text="${g.judul}">Judul Galeri</h3>
+                </div>
+            </div>
+
+            <div class="card" th:if="${listGaleri == null or #lists.isEmpty(listGaleri)}">
+                <div class="card-content">
+                    <h3>Belum Ada Galeri</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>

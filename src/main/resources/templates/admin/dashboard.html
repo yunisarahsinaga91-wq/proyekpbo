@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Admin SMA N 1 Parmaksian</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-body">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="admin-content">
+
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>Dashboard</h1>
+                <p>Selamat datang kembali, <span th:text="${session.username}">Admin</span></p>
+            </div>
+            <div class="topbar-right">
+                <span class="status-badge">Website Aktif</span>
+            </div>
+        </div>
+
+        <!-- STAT CARDS -->
+        <div class="stat-cards">
+            <div class="stat-card bg-purple">
+                <div class="stat-label">Profil Sekolah</div>
+                <div class="stat-number" th:text="${totalProfil}">0</div>
+                <div class="stat-desc">Data profil tersimpan</div>
+            </div>
+            <div class="stat-card bg-blue">
+                <div class="stat-label">Pengumuman</div>
+                <div class="stat-number" th:text="${totalPengumuman}">0</div>
+                <div class="stat-desc">Pengumuman aktif</div>
+            </div>
+            <div class="stat-card bg-green">
+                <div class="stat-label">Galeri</div>
+                <div class="stat-number" th:text="${totalGaleri}">0</div>
+                <div class="stat-desc">Foto dokumentasi</div>
+            </div>
+            <div class="stat-card bg-orange">
+                <div class="stat-label">Data Guru</div>
+                <div class="stat-number" th:text="${totalGuru}">0</div>
+                <div class="stat-desc">Guru terdaftar</div>
+            </div>
+            <div class="stat-card bg-teal">
+                <div class="stat-label">Prestasi</div>
+                <div class="stat-number" th:text="${totalPrestasi}">0</div>
+                <div class="stat-desc">Prestasi tercatat</div>
+            </div>
+            <div class="stat-card bg-dark">
+                <div class="stat-label">Pengguna</div>
+                <div class="stat-number" th:text="${totalUser}">0</div>
+                <div class="stat-desc">Akun terdaftar</div>
+            </div>
+        </div>
+
+        <!-- AKSES CEPAT -->
+        <div class="admin-card">
+            <h2 class="card-title">Akses Cepat</h2>
+            <p class="card-desc">Kelola konten website sekolah melalui menu berikut.</p>
+            <div class="quick-menu">
+                <a th:href="@{/profil}"     class="quick-item">
+                    <div class="quick-item-title">Profil Sekolah</div>
+                    <div class="quick-item-desc">Kelola visi, misi, dan informasi sekolah</div>
+                </a>
+                <a th:href="@{/pengumuman}" class="quick-item">
+                    <div class="quick-item-title">Pengumuman</div>
+                    <div class="quick-item-desc">Tambah dan kelola pengumuman sekolah</div>
+                </a>
+                <a th:href="@{/galeri}"     class="quick-item">
+                    <div class="quick-item-title">Galeri</div>
+                    <div class="quick-item-desc">Unggah foto dokumentasi kegiatan</div>
+                </a>
+                <a th:href="@{/guru}"       class="quick-item">
+                    <div class="quick-item-title">Data Guru</div>
+                    <div class="quick-item-desc">Kelola data tenaga pengajar</div>
+                </a>
+                <a th:href="@{/prestasi}"   class="quick-item">
+                    <div class="quick-item-title">Prestasi</div>
+                    <div class="quick-item-desc">Catat prestasi siswa dan sekolah</div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

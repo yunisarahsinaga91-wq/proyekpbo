@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<footer th:fragment="footer">
+    <div class="footer-inner">
+
+        <div class="footer-brand">
+            <span class="footer-logo">SMA N 1 PARMAKSIAN</span>
+            <p class="footer-tagline">Membentuk generasi cerdas, disiplin,<br>berprestasi, dan berkarakter.</p>
+        </div>
+
+        <hr class="footer-divider">
+
+        <div class="footer-links">
+            <a th:href="@{/}">Beranda</a>
+            <span class="footer-dot">·</span>
+            <a th:href="@{/profil}">Profil</a>
+            <span class="footer-dot">·</span>
+            <a th:href="@{/pengumuman}">Pengumuman</a>
+            <span class="footer-dot">·</span>
+            <a th:href="@{/prestasi}">Prestasi</a>
+            <span class="footer-dot">·</span>
+            <a th:href="@{/galeri}">Galeri</a>
+            <span class="footer-dot">·</span>
+            <a th:href="@{/guru}">Guru</a>
+        </div>
+
+        <p class="footer-address">
+            Jl. Pendidikan No.1, Parmaksian, Kabupaten Toba, Sumatera Utara
+        </p>
+
+        <div class="footer-bottom">
+            <p class="footer-copy">© 2026 SMA Negeri 1 Parmaksian. All rights reserved.</p>
+            <a th:href="@{/login}" class="footer-admin-link">Portal Admin</a>
+        </div>
+
+    </div>
+</footer>
+
+</body>
+</html>
